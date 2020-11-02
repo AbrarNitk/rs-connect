@@ -50,7 +50,7 @@ connect prod_machine
 connect dev_db
 ```
 
-For this library is supporting single command line arguments, command that you want to run.
+For now library is supporting single command line arguments, command that you want to run.
 
 ## TODO
 - spent time
