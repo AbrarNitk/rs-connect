@@ -13,7 +13,10 @@ For example If we have to connect with postgre sql
 PGPASSWORD="root" psql -h localhost -U root -d temp
 ``` 
 
-For this, We have to create a json file with the following format.
+## Now check it out
+
+For this, Firstly we have to create a json file with the following format and set the path in the environment variable.
+```export CONNECT_CONFIG=<json file path>```
 
 ```json
 {
@@ -31,3 +34,11 @@ For this, We have to create a json file with the following format.
   }
 }
 ```
+
+Now build binaries using `cargo build --release` and create an alias for running.
+
+## TODO
+- spend time function
+- command logs and time
+- `connect which prod*`
+- args --print-args, --print-envs, --print-command, --print, -h
