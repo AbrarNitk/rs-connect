@@ -50,8 +50,10 @@ connect prod_machine
 connect dev_db
 ```
 
+For this library is supporting single command line arguments, command that you want to run.
+
 ## TODO
-- spend time function
-- command logs and time
-- `connect which prod*`
+- spent time
+- export command logs and time
+- `connect which prod*`, It will describe all command which have prefix with `prod`
 - args --print-args, --print-envs, --print-command, --print, -h

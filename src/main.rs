@@ -39,6 +39,10 @@ pub fn read_config<T: serde::de::DeserializeOwned>(file_name: &str) -> anyhow::R
 
 fn main() -> anyhow::Result<()> {
     let args: Vec<String> = std::env::args().collect();
+    if args.len() < 2 {
+        println!("Not enough arguments, provide command to run");
+        return Ok(());
+    }
     let command = args.get(1).unwrap();
     let path = std::env::var("CONNECT_CONFIG")?;
     let commands: HashMap<String, Connect> = read_config(&path)?;
