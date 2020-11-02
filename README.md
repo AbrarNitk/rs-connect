@@ -36,6 +36,19 @@ For this, Firstly we have to create a json file with the following format and se
 ```
 
 Now build binaries using `cargo build --release` and create an alias for running.
+```
+alias connect=./target/release/rs-connect
+```
+
+Now run command which you make keys in json at root level.
+
+```
+connect prod_machine
+```
+
+```
+connect dev_db
+```
 
 ## TODO
 - spend time function
