@@ -9,7 +9,8 @@ struct Connect {
 }
 
 fn spawn_command(command: &Connect) -> anyhow::Result<()> {
-    println!("executing command");
+    println!("executing command: {}", command.command);
+    let start = std::time::Instant::now();
     let mut output = std::process::Command::new(&command.command)
         .args(&command.args)
         .envs(&command.envs)
@@ -17,10 +18,10 @@ fn spawn_command(command: &Connect) -> anyhow::Result<()> {
 
     match output.wait() {
         Ok(val) => {
-            println!("Status :: {:?}", val);
+            println!("Status :: {:?}, time: {:?}", val, start.elapsed());
         }
         Err(err) => {
-            println!("Exit Error :: {:?}", err);
+            println!("Exit Error :: {:?}, time: {:?}", err, start.elapsed());
         }
     };
     Ok(())
@@ -39,8 +40,8 @@ pub fn read_config<T: serde::de::DeserializeOwned>(file_name: &str) -> anyhow::R
 fn main() -> anyhow::Result<()> {
     let args: Vec<String> = std::env::args().collect();
     let command = args.get(1).unwrap();
-    println!("Hello, world!: {:?}", args);
-    let connect: HashMap<String, Connect> = read_config("command.json")?;
-    connect.get(command).map(|value| spawn_command(value));
+    let path = std::env::var("CONNECT_CONFIG")?;
+    let commands: HashMap<String, Connect> = read_config(&path)?;
+    commands.get(command).map(|value| spawn_command(value));
     Ok(())
 }
