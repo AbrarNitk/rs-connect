@@ -37,6 +37,10 @@ pub fn read_config<T: serde::de::DeserializeOwned>(file_name: &str) -> anyhow::R
     )?)?)
 }
 
+fn ls(command: &HashMap<String, Connect>) -> () {
+    command.iter().for_each(|(key, _)| println!("{}", key))
+}
+
 fn main() -> anyhow::Result<()> {
     let args: Vec<String> = std::env::args().collect();
     if args.len() < 2 {
@@ -46,6 +50,10 @@ fn main() -> anyhow::Result<()> {
     let command = args.get(1).unwrap();
     let path = std::env::var("CONNECT_CONFIG")?;
     let commands: HashMap<String, Connect> = read_config(&path)?;
-    commands.get(command).map(|value| spawn_command(value));
+    if command == "ls" {
+        ls(&commands);
+    } else {
+        commands.get(command).map(|value| spawn_command(value));
+    }
     Ok(())
 }
