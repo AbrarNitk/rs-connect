@@ -23,7 +23,7 @@ For this, Firstly we have to create a json file with the following format and se
   "prod_machine": {
     "command": "ssh",
     "args": ["ubuntu@192.168.0.1"],
-    "envs": []
+    "envs": {}
   },
   "dev_db": {
     "command": "psql",
