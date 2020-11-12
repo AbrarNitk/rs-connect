@@ -41,6 +41,13 @@ fn ls(command: &HashMap<String, Connect>) -> () {
     command.iter().for_each(|(key, _)| println!("{}", key))
 }
 
+#[warn(unused_must_use)]
+fn which(commands: &HashMap<String, Connect>, value: &str) {
+    commands.iter()
+        .filter(|(key, _)| key.as_str() == value)
+        .for_each(|(key, connect)| println!("{:?}: {:?}", key, connect));
+}
+
 fn main() -> anyhow::Result<()> {
     let args: Vec<String> = std::env::args().collect();
     if args.len() < 2 {
@@ -52,6 +59,10 @@ fn main() -> anyhow::Result<()> {
     let commands: HashMap<String, Connect> = read_config(&path)?;
     if command == "ls" {
         ls(&commands);
+    } else if command == "which" {
+        let command2 = args.get(2).unwrap();
+        println!("{}", command2);
+        which(&commands, command2)
     } else {
         commands.get(command).map(|value| spawn_command(value));
     }
